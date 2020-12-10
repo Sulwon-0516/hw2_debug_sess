@@ -449,8 +449,8 @@ struct Span * alloc_pages(int num_page, size_t size){
     }
     //위에서 찾아봤는데, 없는 경우
     if(return_addr ==NULL){
-        fprintf(stdout,"New pages are called\n");
-        fflush(stdout);
+        //fprintf(stdout,"New pages are called\n");
+        //fflush(stdout);
         new_mapped_addr= mmap(NULL,num_page*PAGE_SIZE, PROT_READ|PROT_WRITE, MAP_ANONYMOUS|MAP_PRIVATE, -1, 0);
         //mmap_init_list[mmap_init_list_cnt] = new_mapped_addr;
         //mmap_init_list_cnt++;
@@ -967,19 +967,24 @@ void * tc_central_init(){
 
 void * tc_thread_init(){
     //i SHOULD check whether there is enough meta data addr.
-
+    //printf("thread_init\n");
+    //fflush(stdout);
+    int ret;
+    /*
     if(meta_addr == NULL){
         if(tc_central_init()==-1){
             fprintf(stderr,"fail to init central heap\n");
             return -1;
         }
+        fprintf(stderr, "central init is done\n");
     }
+    */
     
-    int ret;
     if(ret = pthread_spin_lock(&s_lock)!=0){
         fprintf(stderr,"fail to spin lock\n");
         return -1;
     }
+    //fprintf(stderr, "start thread init\n");
     
     
 
@@ -1070,6 +1075,8 @@ void * tc_malloc(size_t size){
     struct Thread_cache * iter = meta_data->first_thread_cache;
     char req_add = 1;
     int cnt=0;
+
+
 
     while(1){
         cnt++;

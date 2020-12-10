@@ -18,7 +18,7 @@ void *test1(void *data){
     void* ptr[100];
     int iter;
     clock_t start = clock();
-    //void * start_addr = tc_thread_init();
+    void * start_addr = tc_thread_init();
     for (iter = 0; iter < 100; iter++)
         ptr[iter] = tc_malloc(8);
     clock_t clocks = clock() - start;
@@ -26,7 +26,7 @@ void *test1(void *data){
     for (iter = 0; iter < 100; iter++)
         tc_free(ptr[iter]);
 
-    printf("test1 is done\n");
+    //printf("test1 is done\n");
 }
 
 void *test2(void *data){
@@ -34,7 +34,7 @@ void *test2(void *data){
     void* ptr[200];
     int iter;
     clock_t start, clocks;
-    //void * start_addr = tc_thread_init();
+    void * start_addr = tc_thread_init();
 /* Test case b: Allocates 100 small objects size of 128 bytes */
     start = clock();
     for (iter = 0; iter < 100; iter++)
@@ -57,7 +57,7 @@ void *test2(void *data){
     clocks = clock() - start;
     *(res_e + tid) = clocks;
 
-    printf("test2 is done\n");
+    //printf("test2 is done\n");
 }
 
 void *test3(void *data){
@@ -65,7 +65,7 @@ void *test3(void *data){
     void* ptr[10];
     int iter;
     clock_t start, clocks;
-    //void * start_addr = tc_thread_init();
+    void * start_addr = tc_thread_init();
 /* Test case d: Allocates 10 large objects size of 64 Kbytes */
     start = clock();
     for (iter = 0; iter < 10; iter++)
@@ -81,7 +81,7 @@ void *test3(void *data){
     clocks = clock() - start;
     res_f[tid] = clocks;
 
-    printf("test3 is done\n");
+    //printf("test3 is done\n");
 }
 
 int main(int argc, char * argv[]){
